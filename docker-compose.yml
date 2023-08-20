@@ -37,5 +37,5 @@ networks:
     driver: bridge
 volumes:
   wp_db_data:
-    external: #if using existing volume outside of container
-      name: wordpress-docker_wp_db_data #name of existing volume
+   # external: #if using existing volume outside of container
+      #name: wordpress-docker_wp_db_data #name of existing volume
