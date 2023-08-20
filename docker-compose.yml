@@ -1,0 +1,41 @@
+services:
+  wp_db:
+    container_name: wp_db
+    image: mariadb:latest
+    volumes:
+      - wp_db_data:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+    - wp_network
+
+  wp:
+    container_name: wp
+    image: wordpress:latest
+    depends_on:
+      - wp_db
+    volumes:
+      - ./src/themes:/var/www/html/wp-content/themes
+      - ./src/plugins:/var/www/html/wp-content/plugins
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: wp_db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+    - wp_network
+    
+networks:
+  wp_network:
+    driver: bridge
+volumes:
+  wp_db_data:
+    external: #if using existing volume outside of container
+      name: wordpress-docker_wp_db_data #name of existing volume
