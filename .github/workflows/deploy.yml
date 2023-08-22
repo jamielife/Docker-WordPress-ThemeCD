@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Create .env file #custom
+      - name: Create a .env file #custom
         run: | 
           echo 'PORT=${{secrets.PORT}}' >> .env
           echo 'DB_NAME=${{secrets.DB_NAME}}' >> .env
