@@ -11,8 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Create .env #custom
+      - name: Create custom .env file #custom
         run: echo 'PORT=${{secrets.PORT}}' > .env
+        run: echo 'DB_NAME=${{secrets.DB_NAME}}' > .env
+        run: echo 'DB_USER=${{secrets.DB_USER}}' > .env
+        run: echo 'DB_PASSWORD=${{secrets.DB_PASSWORD}}' > .env
+        run: echo 'MYSQL_ROOT_PASSWORD=${{secrets.MYSQL_ROOT_PASSWORD}}' > .env
 
       - name: Run build #custom
         run: docker-compose up -d
